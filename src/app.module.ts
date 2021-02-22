@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './models/user.models';
 import { ConfigModule } from '@nestjs/config';
+import { UserController } from './user/user.controller';
 
 @Module({
   imports: [
@@ -18,10 +19,11 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
       entities: [User],
+      synchronize: true,
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  controllers: [AppController],
+  controllers: [AppController, UserController],
   providers: [AppService],
 })
 export class AppModule {}
