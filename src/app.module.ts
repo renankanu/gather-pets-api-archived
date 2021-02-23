@@ -5,25 +5,25 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './models/user.models';
 import { ConfigModule } from '@nestjs/config';
-import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      //@ts-ignore
-      type: process.env.TYPEORM_CONNECTION,
+      type: process.env.TYPEORM_CONNECTION as any,
       host: process.env.TYPEORM_HOST,
       port: parseInt(process.env.TYPEORM_PORT),
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
       entities: [User],
+      autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    UserModule,
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
