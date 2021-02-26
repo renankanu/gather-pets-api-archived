@@ -19,6 +19,7 @@ import { UserModule } from './user/user.module';
       database: process.env.TYPEORM_DATABASE,
       entities: [User],
       autoLoadEntities: true,
+      useUnifiedTopology: true,
       synchronize: true,
     }),
     UserModule,
