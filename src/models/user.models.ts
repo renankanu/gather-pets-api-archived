@@ -5,24 +5,24 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ name: 'full_name' })
+  fullName: string;
 
   @Column()
-  firstName: string;
+  email: string;
 
-  @Column()
-  lastName: string;
-
-  @Column()
-  age: number;
-
-  @CreateDateColumn({ type: 'timestamp' })
+  @Exclude()
+  @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @Exclude()
+  @UpdateDateColumn({ type: 'timestamp', name: 'update_at' })
   updateAt: Date;
 }
