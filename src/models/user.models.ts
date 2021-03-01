@@ -12,11 +12,14 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'full_name' })
-  fullName: string;
+  @Column()
+  name: string;
 
   @Column()
   email: string;
+
+  @Column()
+  password: string;
 
   @Exclude()
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
