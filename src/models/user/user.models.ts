@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -18,7 +19,7 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @Exclude()
@@ -28,4 +29,9 @@ export class User {
   @Exclude()
   @UpdateDateColumn({ type: 'timestamp', name: 'update_at' })
   updateAt: Date;
+
+  @BeforeInsert()
+  emailToLowerCase() {
+    this.email = this.email.toLowerCase();
+  }
 }
