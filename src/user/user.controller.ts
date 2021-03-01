@@ -3,14 +3,13 @@ import { ApiCreatedResponse } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserResponse } from 'src/api-doc/user.response';
 import { UserI } from '../models/user/user.interface';
-import { Observable } from 'rxjs';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  findAll(): Observable<UserI[]> {
+  async findAll(): Promise<UserI[]> {
     return this.userService.findAll();
   }
 
@@ -18,7 +17,7 @@ export class UserController {
     type: UserResponse,
   })
   @Post()
-  add(@Body() user: UserI): Observable<UserI> {
+  async add(@Body() user: UserI): Promise<UserI> {
     return this.userService.add(user);
   }
 }
